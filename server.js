@@ -12,7 +12,7 @@ const basePath = '/Volumes/EOS_DIGITAL/freger';
 
 // Route pour afficher le formulaire
 app.get('/', (req, res) => {
-  res.sendFile(path.join(basePath, 'Index.html'));
+  res.sendFile(path.join(basePath, 'index.html'));
 });
 
 // Route pour enregistrer les informations
